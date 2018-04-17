@@ -1,5 +1,3 @@
-import { INSPECT_MAX_BYTES } from 'buffer';
-
 const pg = require('pg'),
     _ = require('lodash'),
     pgCamelCase = require('pg-camelcase');
@@ -9,11 +7,11 @@ class Db{
     {
         this.args = args || {};
     }
-    connect = (callback) => {
+    connect(callback) {
         this.client = new Client({ connectionString : this.args.connectionString });
         this.client.connect(callback);
     }
-    query = (text,arrayParams,callback) => {
+    query(text,arrayParams,callback) {
         this.client.query(text,arrayParams,(err,result) => {
             if(err) return callback(err,null);
             else if(result == null){
@@ -23,7 +21,7 @@ class Db{
             this.client.end();
         });
     }
-    getAll = (tableName,callback) => {
+    getAll(tableName,callback) {
         this.connect((err) => {
             if(err) return callback(err,null);
             else {
@@ -34,7 +32,7 @@ class Db{
             }
         });
     }
-    count = (tableName,callback) => {
+    count (tableName,callback) {
        this.query(`select count(*) from ${tableName};`,(err,result) => {
             if(err) return callback(err,null);
             else{
@@ -42,7 +40,7 @@ class Db{
             }
        }); 
     }
-    insert = (tableName,object,callback) => {
+    insert (tableName,object,callback) {
         let keys,values = [];
         var keysCount = _.keys(object).length;
         keys = _.keys(object);
@@ -61,14 +59,14 @@ class Db{
             }
         });
     }
-    delete = (tableName , id , callback) => {
+    delete (tableName , id , callback) {
         let sql = `delete from ${tableName} where ${tableName}_id =  $1 returning *;`;
         this.query(sql,[id],(err,result) => {
             if(err) return callback(err,null);
             return callback(null,result);
         });
     }
-    findOne = (tableName,id,callback) => {
+    findOne (tableName,id,callback) {
         let sql = `select * from ${tableName} where ${tableName}_id = $1;`;
         this.query(sql,[id],(err,result) => {
             if(err) return callback(err,null);
