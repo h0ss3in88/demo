@@ -1,5 +1,3 @@
-/// <reference path="../../typings/modules/express/index.d.ts" />
-
 const express = require('express'),
     bodyParser = require('body-parser'),
     logger = require('morgan'),

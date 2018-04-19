@@ -1,7 +1,11 @@
-let home = require('./lib/home');
+let home = require('./lib/home'),
+    channels = require('./lib/channel'),
+    rooms = require('./lib/room');
 
 module.exports = (app) => {
     app.use('/',home());
+    app.use('/channels',channels());
+    app.use('/rooms',rooms());    
     app.use((req,res,next) => {
         let error = new Error();
         error.message = 'Not Found!';
