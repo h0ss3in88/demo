@@ -11,17 +11,22 @@ CREATE DATABASE demo
        LC_CTYPE = 'en_US.UTF-8'
        CONNECTION LIMIT = -1
        TEMPLATE template0;
+drop table if exists "demo"."user";
+drop table if exists "demo"."channel";
+drop table if exists "demo"."room";
 
-create table user(
+drop SCHEMA if EXISTS "demo";
+create schema "demo";
+create table "demo"."user"(
   user_id serial not null PRIMARY KEY,
-  email VARCHAR(MAX) not null UNIQUE,
-  salt varchar(250) not null ,
-  hashed_password varchar(250) not null,
+  email VARCHAR(255) not null UNIQUE,
+  salt varchar(255) not null ,
+  hashed_password varchar(255) not null,
   profile jsonb default '{}'::jsonb,
   created_at TIMESTAMP not null DEFAULT now(),
   modified_at TIMESTAMP not null DEFAULT now()  
-)
-create table channel(
+);
+create table "demo"."channel"(
   channel_id serial not null PRIMARY KEY,
   channel_name varchar(250) not NULL ,
   owner INT not null ,
@@ -29,7 +34,7 @@ create table channel(
   created_at TIMESTAMP not null DEFAULT now(),
   modified_at TIMESTAMP not null DEFAULT now()  
 );
-create table room(
+create table "demo"."room"(
   room_id serial not null PRIMARY KEY,
   room_name varchar(250) not null ,
   members jsonb default '[]'::jsonb , 
