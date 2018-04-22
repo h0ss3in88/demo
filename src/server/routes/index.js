@@ -1,11 +1,15 @@
 let home = require('./lib/home'),
     channels = require('./lib/channel'),
-    rooms = require('./lib/room');
+    rooms = require('./lib/room'),
+    singIn = require('./lib/signIn'),
+    signUp = require('./lib/signUp');
 
 module.exports = (app) => {
     app.use('/',home());
     app.use('/channels',channels());
     app.use('/rooms',rooms());    
+    app.use('/account',singIn());
+    app.use('/account',signUp());    
     app.use((req,res,next) => {
         let error = new Error();
         error.message = 'Not Found!';

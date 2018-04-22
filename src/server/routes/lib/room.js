@@ -10,6 +10,15 @@ module.exports = () => {
     .route('/')
     .get((req,res,next) => {
         res.send('rooms');
+    })
+    .post((req,res,next) => {
+        //TODO : creation operation
+    })
+    .put((req,res,next) => {
+        //TODO : update operations
+    })
+    .delete((req,res,next) => {
+        //TODO : delete operations
     });
     return _router;
 }

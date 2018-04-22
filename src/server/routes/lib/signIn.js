@@ -1,13 +1,12 @@
-/// <reference path="../../../../typings/node_modules/@types/express/index.d.ts" />
-
 const express = require('express'),
+    _ = require('lodash'),
+    async = require('async'),
     _router = express.Router();
-
 module.exports = () => {
     _router
-        .route('/')
+    .route('/signin')
         .get((req,res,next) => {
-            res.send('channels');
+            res.send('singIn');
         })
         .post((req,res,next) => {
             //TODO : creation operation
@@ -19,4 +18,4 @@ module.exports = () => {
             //TODO : delete operations
         });
     return _router;
-};
+}
